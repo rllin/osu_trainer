@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Target Game</title>
+<!--audio id="player" src="metronome.mp3" preload="auto"></audio-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+<script src='./js/target.js'></script>
+<link rel='stylesheet' type='text/css' href= './css/style.css'>
+</head>
+<body>
+<div id="timer" style="position:fixed;left:10px;top:10px;visibility:hidden;font-size:24px;"></div>
+<div id="circlestats" style="position:fixed;left:10px;top:50px;visibility:hidden;font-size:24px;"></div>
+<div id="accuracy" style="position:fixed;left:10px;top:90px;visibility:hidden;font-size:24px;">Accuracy:</div>
+<div id="averageAccuracy" style="position:fixed;left:10px;top:130px;visibility:hidden;font-size:24px;">Average Accuracy:</div>
+<div id="content">
+<h1 id="headertext" style="text-align:center;">Target Game</h1>
+<div id="download" class="countdown"></div>
+<div id="countdown" class="countdown"></div>
+<table cellpadding="5" cellspacing="5" class="content" id="tableContent">
+<tr>
+<td class="tdleft">Training Speed:</td>
+<td class="tdright">
+<select onchange="calculate()" id="playback">
+	<option value="0.7" selected="selected" >0.7x</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="tdleft" style='visibility:hidden'>BPM:</td>
+<td class="tdright" style='visibility:hidden'><input readonly="readonly" id="bpm" type="text" size="1 0" value="100" /></td>
+</tr>
+<tr>
+<td class="tdleft">Circle Size:</td>
+<td class="tdright">
+<select id="size">
+	<option value="0.4" selected="selected">0.4x</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="tdleft">Duration:</td>
+<td class="tdright">
+<select id="duration">
+    <option value="90" selected="selected"> 90 seconds </option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" class="td2"><button onclick="startCountdown()">Start</button> <button onclick="resetTable()">Reset</button></td>
+</tr>
+</table>
+</div>
+</body>
+</html>
