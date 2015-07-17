@@ -1,0 +1,37 @@
+body {
+	font-family:sans-serif;
+	font-size:18px;
+	background-color:#F0ECFA;
+	overflow:hidden;
+}
+.tdleft {
+	text-align:right;
+	width:50%;
+}
+.tdright {
+	text-align:left;
+	width:50%;
+}
+.td2 {
+	text-align:center;
+	width:100%;
+}
+h1 {
+	margin-top:80px;
+	text-align:center;
+}
+table.content {
+	table-layout:fixed;
+	margin:0 auto;
+	padding:15px;
+	width:350px;
+	border:1px solid #8C8CD4;
+	background-color:#A9A9FF;
+}
+.countdown {
+	width:800px;
+	margin:0 auto;
+	padding-top:20px;
+	text-align:center;
+	font-size:36px;
+}
