@@ -15,6 +15,7 @@ router.post('/api/target', function(req, res) {
         age: req.body.age,
         gender: req.body.gender,
         rank: req.body.rank,
+	state: req.body.state,
         content: req.body.data
     });
     target.save(function(err) {
