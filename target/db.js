@@ -8,6 +8,7 @@ var Target = new Schema({
     age: {type: String, required: true},
     gender: {type: String, required: true},
     rank: {type: String, required: true},
+    state: {type: String, required: true},
     content: {type: String, required: true}
 });
 
