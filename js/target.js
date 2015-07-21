@@ -52,7 +52,7 @@ function submitForm() {
         'rank': rank,
     }
     bio = data;
-    $.post('http://localhost:3000/api/target', {
+    $.post('http://ec2-52-25-109-156.us-west-2.compute.amazonaws.com:3000/api/target', {
         'email': bio.email, 
         'age': bio.age,
         'gender': bio.gender,
@@ -73,7 +73,7 @@ function submitForm() {
 var responseData = {};
 
 function addToResponseData(timestamp, state, data) {
-    $.post('http://localhost:3000/api/target', {
+    $.post('http://ec2-52-25-109-156.us-west-2.compute.amazonaws.com:3000/api/target', {
         'email': bio.email, 
         'age': bio.age,
         'gender': bio.gender,
