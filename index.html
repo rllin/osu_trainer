@@ -5,51 +5,60 @@
 <title>Target Game</title>
 <!--audio id="player" src="metronome.mp3" preload="auto"></audio-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+<script src='./js/jquery-2.1.4.min.js'></script>
+<script src='./js/two.min.js'></script>
 <script src='./js/target.js'></script>
 <link rel='stylesheet' type='text/css' href= './css/style.css'>
 </head>
 <body>
-<div id="timer" style="position:fixed;left:10px;top:10px;visibility:hidden;font-size:24px;"></div>
-<div id="circlestats" style="position:fixed;left:10px;top:50px;visibility:hidden;font-size:24px;"></div>
-<div id="accuracy" style="position:fixed;left:10px;top:90px;visibility:hidden;font-size:24px;">Accuracy:</div>
-<div id="averageAccuracy" style="position:fixed;left:10px;top:130px;visibility:hidden;font-size:24px;">Average Accuracy:</div>
+<div class='circle unselectable' id='purple' draggable='false' style='display:none'></div>
 <div id="content">
-<h1 id="headertext" style="text-align:center;">Target Game</h1>
-<div id="download" class="countdown"></div>
-<div id="countdown" class="countdown"></div>
-<table cellpadding="5" cellspacing="5" class="content" id="tableContent">
-<tr>
-<td class="tdleft">Training Speed:</td>
-<td class="tdright">
-<select onchange="calculate()" id="playback">
-	<option value="0.7" selected="selected" >0.7x</option>
-</select>
-</td>
-</tr>
-<tr>
-<td class="tdleft" style='visibility:hidden'>BPM:</td>
-<td class="tdright" style='visibility:hidden'><input readonly="readonly" id="bpm" type="text" size="1 0" value="100" /></td>
-</tr>
-<tr>
-<td class="tdleft">Circle Size:</td>
-<td class="tdright">
-<select id="size">
-	<option value="0.4" selected="selected">0.4x</option>
-</select>
-</td>
-</tr>
-<tr>
-<td class="tdleft">Duration:</td>
-<td class="tdright">
-<select id="duration">
-    <option value="90" selected="selected"> 90 seconds </option>
-</select>
-</td>
-</tr>
-<tr>
-<td colspan="2" class="td2"><button onclick="startCountdown()">Start</button> <button onclick="resetTable()">Reset</button></td>
-</tr>
-</table>
+<h1 id='headertext' class='unselectable'>Target Game</h1>
+
+<div class='unselectable' style="margin-left:auto; margin-right:auto; text-align:center; width:400px; ">                        
+        <form id='mobaForm'>
+            <div>
+                <label>Do you primarly play League or Dota2?:</label>
+                <select id="moba">
+                    <option value="League">League of Legends</option>
+                    <option value="Dota2">Dota 2</option>
+                </select>
+            </div>
+        </form>
+        <form id='bioForm' style="display:none">
+            <div>
+                <label>Email:</label>
+                <input type="text" id="email"/>
+            </div>
+            <div>
+                <label>Age:</label>
+                <input type="text" id="age" />
+            </div>
+            <div>
+                <label>Gender:</label>
+                <select id="gender">
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
+            <div>
+                <label id='mmrDesc'>Current Solo MMR:</label>
+                <input type="text" id="mmr"/>
+            </div>
+        
+        </form>
+    <button id="btnSubmitMoba" onclick="submitMobaForm();">Submit</button>
+    <p id='required' style="display:none"></p>
+    <button id="btnSubmit" onclick="submitForm();" style="display:none">Submit</button>
+    <button id='btnSections' style='display:none'></button>
+    <button id="btndownload" style="display:none">Download Json</button>
+    <p id='countDown'></p>
+    <p id='doneInstructions' style="display:none">Finished with the task!  Download and email the .json file to <a href="mailto:InvokerPracticeResearch@gmail.com">InvokerPracticeResearch@gmail.com</a></p>
 </div>
+
+
+
+
+
 </body>
 </html>

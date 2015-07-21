@@ -1,8 +1,23 @@
-body {
+body, html {
 	font-family:sans-serif;
 	font-size:18px;
 	background-color:#F0ECFA;
 	overflow:hidden;
+    margin:0;
+    height:100%;
+    cursor:crosshair;
+}
+button, form, select, input {
+    cursor:crosshair;
+}
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 .tdleft {
 	text-align:right;
@@ -17,7 +32,7 @@ body {
 	width:100%;
 }
 h1 {
-	margin-top:80px;
+	margin-top:0px;
 	text-align:center;
 }
 table.content {
@@ -28,10 +43,54 @@ table.content {
 	border:1px solid #8C8CD4;
 	background-color:#A9A9FF;
 }
-.countdown {
+#timer {
+    position:fixed;
+    left:10px;
+    top:50px;
+    visibility:hidden;
+    font-size:24px;
+}
+#countdown {
 	width:800px;
 	margin:0 auto;
 	padding-top:20px;
 	text-align:center;
 	font-size:36px;
 }
+.circle {
+    width:0px;
+    height:0px;
+    visibility:visible;
+    border-radius:50%;
+    position:fixed;
+    background-color:#000;
+}
+#timer {
+    position:fixed;
+    left:10px;
+    top:10px;
+    visibility:hidden;
+    font-size:24px;
+}
+#circlestats {
+    position:fixed;
+    left:10px;
+    top:50px;
+    visibility:hidden;
+    font-size:24px;
+}
+#accuracy {
+    position:fixed;
+    left:10px;
+    top:90px;
+    visibility:hidden;
+    font-size:24px;
+}
+#averageAccuracy {
+    position:fixed;
+    left:10px;
+    top:130px;
+    visibility:hidden;
+    font-size:24px;
+}
+
