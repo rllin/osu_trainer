@@ -57,6 +57,7 @@ function submitForm() {
         'age': bio.age,
         'gender': bio.gender,
         'rank': bio.rank,
+	'state': 'bio',
         'data': JSON.stringify(data)
     }).done(function(data) {
         $('#required').css('display', 'none');
