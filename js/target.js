@@ -267,8 +267,6 @@ function endGame(nextTask) {
     console.log(sections[taskNum].name);
     $('#purple').css('display', 'none');
     if (sections[taskNum].name == 'download') {
-        $('#btndownload').html('<a href="data:' + encodeURI("text/json;charset=utf-8," + JSON.stringify(responseData)) + '" download="' + bio['email'].replace('@', '_').replace('.', '_') + '.json">Download Json</a>');
-        $('#btndownload').css('display', 'block');
         $('#doneInstructions').css('display', 'block');
     } else {
         var myCounter = new Countdown({  
