@@ -1,6 +1,7 @@
 var circle;
 var inputFlag = 1;
 var mouseCoor;
+var targetCoor;
 var viewportwidth;
 var viewportheight;
 updateSize();
@@ -153,17 +154,12 @@ function initialize(section) {
 
 function showNextCircle(section) {
     mouseCoor = [];
+    targetCoor = [];
     $(document).off().on('mousemove', function(event) {
-        var nCoor = normalizeCoors(event.pageX, event.pageY);
-        var nxCoor = nCoor.x,
-            nyCoor = nCoor.y;
-        mouseCoor.push([(new Date).getTime(), 'move', nxCoor, nyCoor])
+        mouseCoor.push([(new Date).getTime(), 'move', event.pageX, event.pageY])
     });
     $(document).off().on('click', function(event) {
-        var nCoor = normalizeCoors(event.pageX, event.pageY);
-        var nxCoor = nCoor.x,
-            nyCoor = nCoor.y;
-        mouseCoor.push([(new Date).getTime(), 'click', nxCoor, nyCoor])
+        mouseCoor.push([(new Date).getTime(), 'click', event.pageX, event.pageY])
     });
     circle = circleList.shift();
     setTimeout(function() {
@@ -174,7 +170,7 @@ function showNextCircle(section) {
             var cCoor = convertCoors(circle[0], circle[1]);
             var txCoor = cCoor.x,
                 tyCoor = cCoor.y;
-            mouseCoor.push([(new Date).getTime(), 'appear', txCoor, tyCoor]);
+            mouseCoor = [(new Date).getTime(), 'appear', txCoor, tyCoor];
             $(document).off().on('click', function(event) {execute(event, section, circle)});
             $('#purple').css('background-color', '#000000');
             $('#purple').css('display', 'block');
@@ -204,6 +200,8 @@ function execute(event, section, circle) {
         inputFlag = 0;
         var data = {
             'mouseCoor': mouseCoor,
+            'size': {viewportheight, viewportwidth}
+            'target'
         }
         console.log('last mouseCoor: ' + mouseCoor[mouseCoor.length - 1])
         addToResponseData(timestamp, 'hit', data);
