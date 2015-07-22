@@ -54,10 +54,7 @@ function submitForm() {
     bio = data;
     $.post('http://ec2-52-25-109-156.us-west-2.compute.amazonaws.com:3000/api/target', {
         'email': bio.email, 
-        'age': bio.age,
-        'gender': bio.gender,
-        'rank': bio.rank,
-	'state': 'bio',
+	    'state': 'bio',
         'data': JSON.stringify(data)
     }).done(function(data) {
         $('#required').css('display', 'none');
@@ -76,9 +73,6 @@ var responseData = {};
 function addToResponseData(timestamp, state, data) {
     $.post('http://ec2-52-25-109-156.us-west-2.compute.amazonaws.com:3000/api/target', {
         'email': bio.email, 
-        'age': bio.age,
-        'gender': bio.gender,
-        'rank': bio.rank,
         'state': state,
         'data': JSON.stringify(data)
     }).done(function(data) {
@@ -92,7 +86,6 @@ function nextButton(section) {
     $('#btnSections').css('display', 'block');
     $('#btnSections').text(section.name);
 }
-
 
 var taskNum = 0;
 
@@ -121,47 +114,6 @@ function disableSelection(target) {
            '-ms-user-select':'none',
            'user-select':'none'
      }).bind('selectstart', function(){ return false; });
-}
-
-function calculate() {
-	var playbackRate = $('#playback').val();
-	var bpm_new = 100*playbackRate;
-	var beats_per_second = bpm_new/60;
-	milliseconds_per_beat = 1000/beats_per_second;
-    console.log(milliseconds_per_beat)
-	$("#bpm").value = Math.ceil(bpm_new*100)/100;;
-}
-
-function resetTable() {
-	$("#bpm").value = 100;
-	$("#playback").value = 1.0;
-	$("#size").value = 0.5;
-	$("#duration").value = "5";
-}
-
-function startCountdown() {
-	calculate();
-	disableSelection($("#purple"));
-	disableSelection($("#timer"));
-	disableSelection($("#circlestats"));
-	$("#tableContent").css('visibility', "hidden");
-	$("#countdown").innerHTML = "Ready?";
-	countdownTimer = setInterval(function() { handleTimer(countdownCount); }, 700);
-}
-
-function handleTimer() {
-	if(countdownCount === 0) {
-		clearInterval(countdownTimer);
-		endCountdown();
-	} else {
-		$("#countdown").innerHTML = countdownCount;
-		countdownCount--;
-	}
-}
-
-function endCountdown() {
-	$("#content").css('visibility', "hidden");
-	startLoop($('#size').val(), $('#duration').val());
 }
 
 function updateSize() {
@@ -281,173 +233,6 @@ function endGame(nextTask) {
         myCounter.start();
     }   
 }
-
-
-
-
-function startLoop(size, duration) {
-	trainingTimer(duration,0);
-	circleTimer(size,0);
-}
-
-function trainingTimer(duration,c) {
-	$("#timer").innerHTML = "Time left: "+(duration-c);
-	if(duration==c) {
-		endTraining();
-	}
-	else {
-		window.setTimeout(function() {trainingTimer(duration,c+1)},1000);
-	}
-}
-
-function endTraining() {
-	trainingEnded = 1;
-    setTimeout(function() {
-        $("#timer").css('display', 'none');
-        $("#circlestats").css('display', 'none');
-        $("#accuracy").css('display', 'none');
-        $("#averageAccuracy").css('display', 'none');
-        $("#content").css('display', 'block');
-        $("#headertext").innerHTML = "TIME IS UP!";
-        //$("#countdown").innerHTML = "Results:<br/><br/>"+$("#circlestats").innerHTML+"<br/>"+$("#averageAccuracy").innerHTML+"<br/><br/><span onclick='location.reload()' style='cursor:pointer'>Play Again</span>";
-        $("#countdown").innerHTML = "<span onclick='location.reload()' style='cursor:pointer'>Play Again</span>";
-        $("#download").innerHTML = '<a href="data:' + encodeURI("text/json;charset=utf-8," + JSON.stringify(responseData)) + '" download="data.json">download data</a>';
-    }, 1000);
-}
-
-function randomInt(min,max) {
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
-
-function rndNorm() {
-    // thanks central limit theorem for nice approximation of normal distribution sampling
-    return ((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3;
-}
-
-function randomR(mean, spread) {
-    return Math.abs(mean + spread * rndNorm())
-}
-
-function randomTheta(angle) {
-    return angle * Math.random()
-}
-
-function isOdd(num) { 
-	return num % 2;
-}
-
-function generateCircle(oldX, oldY, bound, rightBound, bottomBound) {
-    var mean = 300
-    var spread = 10
-    var r = randomR(mean, spread)
-    var theta = randomTheta(2*Math.PI)
-    var addX = r * Math.cos(theta)
-    var addY = r * Math.sin(theta)
-    var x,y
-    if ( (oldX + addX) <= bound || (oldX + addX) >= rightBound) {
-        x = oldX - addX
-    } else {
-        x = oldX + addX
-    }
-    if ( (oldY + addY) <= bound || (oldY + addY) >= bottomBound) {
-        y = oldY - addY
-    } else {
-        y = oldY + addY
-    }
-
-    x = Math.max(Math.min(rightBound, x), bound)
-    y = Math.max(Math.min(rightBound, y), bound)
-    return {x: x, y:y}
-}
-
-function circleTimer(size,c) {
-	totalCircles++;
-	var totalCirclesDisplay;
-	if(totalCircles>1) {
-		totalCirclesDisplay = totalCircles-1;
-	}
-	else {
-		totalCirclesDisplay = totalCircles;
-	}
-	$("#circlestats").innerHTML = "Circles clicked: "+circlesClicked+"/"+totalCirclesDisplay+" ("+Math.round((circlesClicked/totalCirclesDisplay*100))+"%)";
-    //$('#player').play();
-	var bound = 100*size;
-	var viewportwidth;
-	var viewportheight;
-    if (typeof window.innerWidth != 'undefined') {
-        viewportwidth = window.innerWidth,
-        viewportheight = window.innerHeight
-    }
-    else if (typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
-        viewportwidth = document.documentElement.clientWidth,
-        viewportheight = document.documentElement.clientHeight
-    }
-    else {
-        viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
-        viewportheight = document.getElementsByTagName('body')[0].clientHeight
-    }
-	var rightBound = viewportwidth-bound;
-	var bottomBound = viewportheight-bound;
-
-    $("#purple").css('display', 'block');
-
-    purpleCoor = generateCircle(purpleX, purpleY, bound, rightBound, bottomBound)
-    purpleX = purpleCoor.x;
-    purpleY = purpleCoor.y;
-
-    $("#purple").css('left', purpleX + "px");
-    $("#purple").css('top', purpleY + "px");
-    purpleTimer = new Date().getTime();
-
-    responseData[purpleTimer] = {'click': 0}
-
-	if(trainingEnded==1) {
-		clearInterval(loopTimer);
-		$("#purple").css('display', 'none');
-	}
-	else {
-		loopTimer = setTimeout(function() {
-            circleTimer(size,c+1);
-        },(milliseconds_per_beat));
-	}
-}
-
-function clickedCircle() {
-	var currentTime = new Date().getTime();
-    circlesClicked++;
-    $("#circlestats").innerHTML = "Circles clicked: "+circlesClicked+"/"+totalCircles+" ("+Math.round((circlesClicked/totalCircles*100))+"%)";
-    var accuracy;
-    var averageTiming;
-    var timing;
-    accuracy = (currentTime - purpleTimer);
-    $("#purple").css('visibility', "hidden");
-    if(accuracy>0) {
-        timing = "early";
-        timing = 'late';
-    }
-    else {
-        timing = "late";
-        timing = 'early';
-    }
-    $("#accuracy").innerHTML = "Accuracy: "+Math.abs(accuracy)+" ms "+timing;
-    averageAccuracy = averageAccuracy + accuracy;
-    if(averageAccuracy>0) {
-        averageTiming = "early";
-    }
-    else {
-        averageTiming = "late";
-    }
-    var averageDisplay = averageAccuracy/circlesClicked;
-    $("#averageAccuracy").innerHTML = "Average Accuracy: "+Math.round(Math.abs(averageDisplay))+" ms "+averageTiming;
-
-    responseData[purpleTimer] = {
-        'click': 1,
-        'hitTime': currentTime,
-        'circleX': purpleX,
-        'circleY': purpleY,
-    }
-}
-
 
 function Countdown(options) {
   var timer,
