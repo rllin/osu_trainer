@@ -200,8 +200,8 @@ function execute(event, section, circle) {
         inputFlag = 0;
         var data = {
             'mouseCoor': mouseCoor,
-            'size': {viewportheight, viewportwidth}
-            'target'
+            'size': {viewportheight, viewportwidth},
+            'target': targetCoor
         }
         console.log('last mouseCoor: ' + mouseCoor[mouseCoor.length - 1])
         addToResponseData(timestamp, 'hit', data);
