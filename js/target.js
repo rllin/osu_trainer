@@ -5,7 +5,7 @@ var targetCoor;
 var viewportwidth;
 var viewportheight;
 updateSize();
-$(window).off().on('resize', function() {
+$(window).on('resize', function() {
     updateSize();
 });
 
@@ -155,10 +155,11 @@ function initialize(section) {
 function showNextCircle(section) {
     mouseCoor = [];
     targetCoor = [];
-    $(document).off().on('mousemove', function(event) {
+    $(document).off();
+    $(document).on('mousemove', function(event) {
         mouseCoor.push([(new Date).getTime(), 'move', event.pageX, event.pageY])
     });
-    $(document).off().on('click', function(event) {
+    $(document).on('click', function(event) {
         mouseCoor.push([(new Date).getTime(), 'click', event.pageX, event.pageY])
     });
     circle = circleList.shift();
@@ -171,7 +172,7 @@ function showNextCircle(section) {
             var txCoor = cCoor.x,
                 tyCoor = cCoor.y;
             targetCoor = [(new Date).getTime(), 'appear', txCoor, tyCoor];
-            $(document).off().on('click', function(event) {execute(event, section, circle)});
+            $(document).on('click', function(event) {execute(event, section, circle)});
             $('#purple').css('background-color', '#000000');
             $('#purple').css('display', 'block');
             $("#purple").css('left', txCoor - section.radius + "px");
