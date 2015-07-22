@@ -4,7 +4,7 @@ var mouseCoor;
 var viewportwidth;
 var viewportheight;
 updateSize();
-$(window).on('resize', function() {
+$(window).off().on('resize', function() {
     updateSize();
 });
 
@@ -81,8 +81,7 @@ function addToResponseData(timestamp, state, data) {
 }
 
 function nextButton(section) {
-    $('#btnSections').off();
-    $('#btnSections').on('click', function() {initialize(section)});
+    $('#btnSections').off().on('click', function() {initialize(section)});
     $('#btnSections').css('display', 'block');
     $('#btnSections').text(section.name);
 }
@@ -154,14 +153,13 @@ function initialize(section) {
 
 function showNextCircle(section) {
     mouseCoor = [];
-    $(document).off();
-    $(document).on('mousemove', function(event) {
+    $(document).off().on('mousemove', function(event) {
         var nCoor = normalizeCoors(event.pageX, event.pageY);
         var nxCoor = nCoor.x,
             nyCoor = nCoor.y;
         mouseCoor.push([(new Date).getTime(), 'move', nxCoor, nyCoor])
     });
-    $(document).on('click', function(event) {
+    $(document).off().on('click', function(event) {
         var nCoor = normalizeCoors(event.pageX, event.pageY);
         var nxCoor = nCoor.x,
             nyCoor = nCoor.y;
@@ -177,7 +175,7 @@ function showNextCircle(section) {
             var txCoor = cCoor.x,
                 tyCoor = cCoor.y;
             mouseCoor.push([(new Date).getTime(), 'appear', txCoor, tyCoor]);
-            $(document).on('click', function(event) {execute(event, section, circle)});
+            $(document).off().on('click', function(event) {execute(event, section, circle)});
             $('#purple').css('background-color', '#000000');
             $('#purple').css('display', 'block');
             $("#purple").css('left', txCoor - section.radius + "px");
