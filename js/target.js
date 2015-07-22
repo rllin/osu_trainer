@@ -170,7 +170,7 @@ function showNextCircle(section) {
             var cCoor = convertCoors(circle[0], circle[1]);
             var txCoor = cCoor.x,
                 tyCoor = cCoor.y;
-            mouseCoor = [(new Date).getTime(), 'appear', txCoor, tyCoor];
+            targetCoor = [(new Date).getTime(), 'appear', txCoor, tyCoor];
             $(document).off().on('click', function(event) {execute(event, section, circle)});
             $('#purple').css('background-color', '#000000');
             $('#purple').css('display', 'block');
