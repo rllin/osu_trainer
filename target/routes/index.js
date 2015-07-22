@@ -12,10 +12,7 @@ router.get('/', function(req, res, next) {
 router.post('/api/target', function(req, res) {
     var target = new TargetModel({
         email: req.body.email,
-        age: req.body.age,
-        gender: req.body.gender,
-        rank: req.body.rank,
-	state: req.body.state,
+        state: req.body.state,
         content: req.body.data
     });
     target.save(function(err) {

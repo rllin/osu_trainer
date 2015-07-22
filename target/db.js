@@ -5,9 +5,6 @@ mongoose.connect('mongodb://localhost/target');
 
 var Target = new Schema({
     email: {type: String, required: true},
-    age: {type: String, required: true},
-    gender: {type: String, required: true},
-    rank: {type: String, required: true},
     state: {type: String, required: true},
     content: {type: String, required: true}
 });
