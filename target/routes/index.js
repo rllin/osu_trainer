@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/api/target', function(req, res) {
     var target = new TargetModel({
+        timestamp: req.body.timestamp,
         email: req.body.email,
         state: req.body.state,
         content: req.body.data

@@ -16,13 +16,14 @@ window.setInterval(function() {
 }, 16);
 var sections = [
     {'name': 'round 1',
-     'circles': [[0.1, 0.1], [0.1, 0.2], [0.3, 0.4]],
+     //'circles': [[0.1, 0.1], [0.1, 0.2], [0.3, 0.4]],
+     'circles': [[0.2410231955722178, 0.19760449171716699], [0.10025334428830396, 0.34898475336547485], [0.25571663243302611, 0.10516858167659725], [0.69991593826401144, 0.68656034372388108], [0.81240760371904708, 0.64579790464165288], [0.73630197763354788, 0.64999055503127723]],
      'radius': 30,
      'isi': 1000,
      'rest': 3,
     },
     {'name': 'round 2',
-     'circles': [[0.1, 0.1], [0.1, 0.2], [0.3, 0.4]],
+     'circles': [[0.21128295870290473, 0.11227761230497832], [0.3369612673684117, 0.11693720898922191], [0.25950052309276228, 0.1654109231646454], [0.70279798927220261, 0.7640272401901762], [0.83970996882730065, 0.70084381279834496], [0.773681895610971, 0.84486211440752723]],
      'radius': 30,
      'isi': 1000,
      'rest': 2,
@@ -65,6 +66,7 @@ function submitForm() {
     }
     bio = data;
     $.post('http://ec2-52-25-109-156.us-west-2.compute.amazonaws.com:3000/api/target', {
+        'timestamp': (new Date()).getTime().toString(),
         'email': bio.email, 
 	    'state': 'bio',
         'data': JSON.stringify(data)
@@ -84,6 +86,7 @@ var responseData = {};
 
 function addToResponseData(timestamp, state, data) {
     $.post('http://ec2-52-25-109-156.us-west-2.compute.amazonaws.com:3000/api/target', {
+        'timestamp': (new Date()).getTime().toString(),
         'email': bio.email, 
         'state': state,
         'data': JSON.stringify(data)
