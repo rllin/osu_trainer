@@ -4,11 +4,16 @@ var mouseCoor;
 var targetCoor;
 var viewportwidth;
 var viewportheight;
+var maxMouseMoveDiff = 0;
+var allowMouseMove = 0;
+var csgoRanks = ['Silver I', 'Silver II', 'Silver III', 'Silver IV', 'Silver Elite', 'Silver Elite Master', 'Gold Nova I', 'Gold Nova II', 'Gold Nova III', 'Gold Nova Master', 'Gold Nova Guardian I', 'Gold Nova Guardian II', 'Master Guardian Elite', 'Distinguished Master Guardian', 'Legendary Eagle', 'Legendary Eagle Master', 'Supreme Master First Class', 'The Global Elite'];
 updateSize();
 $(window).on('resize', function() {
     updateSize();
 });
-
+window.setInterval(function() {
+    allowMouseMove = 1;
+}, 16);
 var sections = [
     {'name': 'round 1',
      'circles': [[0.1, 0.1], [0.1, 0.2], [0.3, 0.4]],
@@ -36,6 +41,12 @@ function submitMobaForm() {
         $('#mmrDesc').text('Dota 2 MMR (exact value from profile):')
     } else if ($('#moba').val() == 'CS:GO') {
         $('#mmrDesc').text('CSGO rank:')
+	$('#mmr').replaceWith('<select id=\'mmr\'></select>')
+	$.each(csgoRanks, function(key, value) {
+            $('#mmr').append($('<option></option>')
+                .attr('value', key)
+                .text(value));
+        });
     }
 }
 
@@ -157,7 +168,14 @@ function showNextCircle(section) {
     targetCoor = [];
     $(document).off();
     $(document).on('mousemove', function(event) {
-        mouseCoor.push([(new Date).getTime(), 'move', event.pageX, event.pageY])
+	if (allowMouseMove == 1) {
+	    //var lastTime = mouseCoor[mouseCoor.length-1][0]
+	    mouseCoor.push([(new Date).getTime(), 'move', event.pageX, event.pageY])
+	    allowMouseMove = 0;
+	    //var diff = mouseCoor[mouseCoor.length-1][0] - lastTime;
+	    //maxMouseMoveDiff = Math.max(maxMouseMoveDiff, diff);
+	    //console.log(diff, maxMouseMoveDiff, event.pageX, event.pageY);
+        }
     });
     $(document).on('click', function(event) {
         mouseCoor.push([(new Date).getTime(), 'click', event.pageX, event.pageY])
